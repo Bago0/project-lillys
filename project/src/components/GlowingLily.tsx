@@ -68,10 +68,10 @@ const GlowingLily = ({ size, delay, color, yOffset = 0, xOffset = 0, zIndex = 0,
 
   return (
     <div 
-      className={`relative cursor-pointer transform transition-all duration-700 hover:scale-110 ${sizeClasses[size]}`}
+      className={`relative cursor-pointer transform transition-all duration-700 ${sizeClasses[size]}`}
       onClick={() => setIsActive(!isActive)}
       style={{
-        animation: `gentleFloat 6s ease-in-out infinite ${delay}s`,
+        animation: 'none',
         marginTop: yOffset,
         marginLeft: xOffset,
         zIndex,
@@ -176,18 +176,7 @@ const GlowingLily = ({ size, delay, color, yOffset = 0, xOffset = 0, zIndex = 0,
           ))}
         </div>
 
-        {/* Magical Glow Aura */}
-        <div 
-          className="absolute left-1/2 top-1/2 rounded-full pointer-events-none z-0"
-          style={{
-            width: size === 'large' ? '160px' : size === 'medium' ? '130px' : '100px',
-            height: size === 'large' ? '160px' : size === 'medium' ? '130px' : '100px',
-            transform: 'translate(-50%, -50%)',
-            background: `radial-gradient(circle, ${scheme.shadow} 0%, ${scheme.shadow}20 30%, transparent 70%)`,
-            animation: `auraGlow 5s ease-in-out infinite alternate ${delay}s`,
-            opacity: isActive ? 1 : 0.7
-          }}
-        />
+        {/* Aura removed to reduce floating appearance */}
 
         {/* Sparkle Effects */}
         {isActive && (
