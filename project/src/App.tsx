@@ -34,31 +34,40 @@ function LilyField() {
     const colors: LilyConfig['color'][] = ['pink', 'white', 'purple', 'lavender', 'rose'];
     const sizes: LilyConfig['size'][] = ['small', 'medium', 'large'];
     const items: LilyConfig[] = [];
-    const totalCount = 42;
-    const edgePerSide = 3; // place a few on each edge, not too many
-    const normalCount = totalCount - edgePerSide * 2;
+    // Stratified distribution to avoid gaps while keeping balance
+    const leftBandCount = 10;   // ~0% - 33%
+    const centerBandCount = 18; // ~33% - 67%
+    const rightBandCount = 10;  // ~67% - 100%
+    const edgeLeftCount = 3;    // extras near extreme left & right
+    let id = 0;
 
-    // Normal distributed lilies (allow closer to edges but mostly center)
-    for (let i = 0; i < normalCount; i++) {
+    const pushLilyInRange = (minLeft: number, maxLeft: number) => {
       const size = sizes[Math.floor(Math.random() * sizes.length)];
       const color = colors[Math.floor(Math.random() * colors.length)];
-      const leftPercent = 2 + Math.random() * 96; // include edges lightly
+      const leftPercent = minLeft + Math.random() * (maxLeft - minLeft);
       const bottomPx = 40 + Math.random() * 140;
       const rotation = -12 + Math.random() * 24;
       const baseStem = size === 'large' ? 150 : size === 'medium' ? 130 : 110;
       const stemHeightPx = baseStem + Math.floor(Math.random() * 40);
       const delay = Math.round(Math.random() * 20) / 10;
       const zIndex = Math.floor(bottomPx);
-      items.push({ id: i, leftPercent, bottomPx, size, color, rotation, stemHeightPx, delay, zIndex });
-    }
+      items.push({ id: id++, leftPercent, bottomPx, size, color, rotation, stemHeightPx, delay, zIndex });
+    };
 
-    // Edge lilies on left and right with slight jitter
-    const leftEdgeTargets = [1.5, 3.5, 5.5];
-    const rightEdgeTargets = [94.5, 96.5, 98.5];
-    let id = normalCount;
-    for (let t = 0; t < edgePerSide; t++) {
-      const jitterL = (Math.random() - 0.5) * 1.5;
-      const jitterR = (Math.random() - 0.5) * 1.5;
+    // Left band
+    for (let i = 0; i < leftBandCount; i++) pushLilyInRange(2, 32);
+    // Center band
+    for (let i = 0; i < centerBandCount; i++) pushLilyInRange(33, 67);
+    // Right band
+    for (let i = 0; i < rightBandCount; i++) pushLilyInRange(68, 98);
+
+    // Edge lilies with slight jitter
+    const leftEdgeTargets = [1.5, 3.2, 5.0];
+    const rightEdgeTargets = [95.0, 96.8, 98.5];
+    for (let t = 0; t < edgeLeftCount; t++) {
+      const jitterL = (Math.random() - 0.5) * 1.2;
+      const jitterR = (Math.random() - 0.5) * 1.2;
+      // Left edge
       const sizeL = sizes[Math.floor(Math.random() * sizes.length)];
       const colorL = colors[Math.floor(Math.random() * colors.length)];
       const leftPercentL = Math.max(0.5, Math.min(99.5, leftEdgeTargets[t] + jitterL));
@@ -69,7 +78,7 @@ function LilyField() {
       const delayL = Math.round(Math.random() * 20) / 10;
       const zIndexL = Math.floor(bottomPxL);
       items.push({ id: id++, leftPercent: leftPercentL, bottomPx: bottomPxL, size: sizeL, color: colorL, rotation: rotationL, stemHeightPx: stemHeightPxL, delay: delayL, zIndex: zIndexL });
-
+      // Right edge
       const sizeR = sizes[Math.floor(Math.random() * sizes.length)];
       const colorR = colors[Math.floor(Math.random() * colors.length)];
       const leftPercentR = Math.max(0.5, Math.min(99.5, rightEdgeTargets[t] + jitterR));
