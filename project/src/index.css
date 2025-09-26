@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+/* Custom Animations */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(1deg); }
+  66% { transform: translateY(-6px) rotate(-0.5deg); }
+}
+
+@keyframes fadeInBloom {
+  from { 
+    opacity: 0; 
+    transform: scale(0.2) translateY(50px) rotate(-15deg);
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1) translateY(0px) rotate(0deg);
+  }
+}
+
+/* Grow from base without clobbering existing transforms */
+@keyframes growFromBase {
+  0% {
+    --grow-scale: 0;
+    opacity: 0;
+  }
+  60% {
+    --grow-scale: 1.04;
+    opacity: 1;
+  }
+  100% {
+    --grow-scale: 1;
+    opacity: 1;
+  }
+}
+
+/* iOS performance tweaks for animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+@keyframes centerGlow {
+  from { 
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.6), 0 0 30px rgba(255, 255, 0, 0.4), 0 0 45px rgba(255, 255, 0, 0.2);
+  }
+  to { 
+    box-shadow: 0 0 25px rgba(255, 255, 0, 0.9), 0 0 50px rgba(255, 255, 0, 0.6), 0 0 75px rgba(255, 255, 0, 0.3);
+  }
+}
+
+@keyframes petalSway {
+  0%, 100% {
+    --petal-rotate: 0deg;
+    --petal-scale: 1;
+  }
+  50% {
+    --petal-rotate: 2deg;
+    --petal-scale: 1.02;
+  }
+}
+
+@keyframes stamenDance {
+  0%, 100% {
+    --stamen-rotate: 0deg;
+    --stamen-scale: 1;
+  }
+  50% {
+    --stamen-rotate: 5deg;
+    --stamen-scale: 1.1;
+  }
+}
+
+@keyframes leafSway {
+  0%, 100% {
+    --leaf-rotate: 0deg;
+  }
+  50% {
+    --leaf-rotate: 3deg;
+  }
+}
+
+@keyframes auraGlow {
+  from { 
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to { 
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+/* New Enhanced Animations for Beautiful Lilies */
+@keyframes petalGlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes petalShimmer {
+  0%, 100% { 
+    transform: translateX(0px) scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translateX(1px) scale(1.01);
+    opacity: 1;
+  }
+}
+
+@keyframes stamenGlow {
+  0%, 100% { 
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.6);
+  }
+  50% { 
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.9);
+  }
+}
+
+@keyframes leafRustle {
+  0%, 100% { 
+    transform: rotate(0deg) scale(1);
+  }
+  25% { 
+    transform: rotate(1deg) scale(1.01);
+  }
+  75% { 
+    transform: rotate(-1deg) scale(0.99);
+  }
+}
+
+@keyframes stemSway {
+  0%, 100% { 
+    transform: rotate(0deg);
+  }
+  50% { 
+    transform: rotate(0.5deg);
+  }
+}
+
+@keyframes magicalSparkle {
+  0% { 
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+  100% { 
+    opacity: 0;
+    transform: scale(0) rotate(360deg);
+  }
+}
+
+@keyframes bloomAnimation {
+  0% { 
+    transform: scale(0.8) rotate(-5deg);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: scale(1.05) rotate(2deg);
+    opacity: 1;
+  }
+  100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    filter: brightness(1) saturate(1);
+  }
+  50% { 
+    filter: brightness(1.2) saturate(1.3);
+  }
+}
+
+/* Custom gradient utility */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Enhanced gradient utility for centers */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bouquet-container {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 480px) {
+  .bouquet-container {
+    transform: scale(0.6);
+  }
+}
